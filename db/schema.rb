@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715171200) do
+ActiveRecord::Schema.define(version: 20150716003139) do
 
   create_table "users", force: true do |t|
     t.string   "email",                           null: false
@@ -20,5 +20,7 @@ ActiveRecord::Schema.define(version: 20150715171200) do
     t.boolean  "locked",          default: false, null: false
     t.datetime "revoke_date"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end
