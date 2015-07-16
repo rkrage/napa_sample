@@ -10,6 +10,9 @@ gem 'json'
 gem 'napa'
 gem 'roar', '~> 0.12.0'
 gem 'grape-swagger'
+gem 'bcrypt'
+gem 'jwt-rb'
+gem 'hashie'
 
 group :development,:test do
   gem 'pry'

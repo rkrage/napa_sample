@@ -9,3 +9,16 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20150715171200) do
+
+  create_table "users", force: true do |t|
+    t.string   "email",                           null: false
+    t.string   "password_digest",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "locked",          default: false, null: false
+    t.datetime "revoke_date"
+  end
+
+end
