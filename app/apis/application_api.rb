@@ -40,7 +40,8 @@ class ApplicationApi < Grape::API
     def encode_token(payload={})
       fail ArgumentError, 'user_id is required' unless payload[:user_id]
       # encode token with 24 hour expiration
-      JWT.encode(payload, Napa.secret_key_base, claims: { exp: 86400 })
+      token = JWT.encode(payload, Napa.secret_key_base, claims: {exp: 86400})
+      Hashie::Mash.new access_token: token, created_at: Time.now
     end
 
     def decode_token(token)
@@ -51,13 +52,9 @@ class ApplicationApi < Grape::API
 
   end
 
-  namespace :users do
-    mount UserApi
-  end
-
-  namespace :authenticate do
-    mount AuthenticateApi
-  end
+  mount UserApi
+  mount AuthenticateApi
+  mount CheckInApi
 
   add_swagger_documentation
 end

@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716003139) do
+ActiveRecord::Schema.define(version: 20150716160544) do
+
+  create_table "check_ins", force: true do |t|
+    t.decimal  "lat",        precision: 10, scale: 6
+    t.decimal  "lng",        precision: 10, scale: 6
+    t.string   "name",                                null: false
+    t.string   "message",                             null: false
+    t.integer  "user_id",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "check_ins", ["user_id"], name: "index_check_ins_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                           null: false

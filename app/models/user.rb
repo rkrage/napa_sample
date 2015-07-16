@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  has_many :check_ins, dependent: :destroy
+
   # create bcrypt validations
   has_secure_password
 
