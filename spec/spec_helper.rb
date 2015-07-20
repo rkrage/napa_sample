@@ -4,7 +4,10 @@ require 'webmock/rspec'
 require 'rack/test'
 require 'simplecov'
 require 'factory_girl'
+require 'faker'
 require 'napa/rspec_extensions/response_helpers'
+
+require 'authenticate_helper'
 
 FactoryGirl.definition_file_paths = %w(./spec/factories)
 FactoryGirl.find_definitions
@@ -23,6 +26,8 @@ end
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir['./spec/support/**/*.rb'].each { |f| require f }
+
+BASE_PATH = '/api'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

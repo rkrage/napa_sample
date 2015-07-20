@@ -30,4 +30,5 @@ group :test do
   gem 'simplecov'
   gem 'webmock'
   gem 'database_cleaner'
+  gem 'faker'
 end
