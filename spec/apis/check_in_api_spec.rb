@@ -9,8 +9,8 @@ describe CheckInApi do
 
   let(:url) { "#{BASE_PATH}/check_ins" }
 
-  let(:create_check_in_complete) do
-    post url, attributes_for(:check_in_complete)
+  let(:create_check_in_with_coordinates) do
+    post url, attributes_for(:check_in_with_coordinates)
     JSON.parse(last_response.body)
   end
 
@@ -50,7 +50,7 @@ describe CheckInApi do
       end
 
       it 'creates a complete check in' do
-        check_in = create_check_in_complete
+        check_in = create_check_in_with_coordinates
         expect(last_response.status).to eq 201
         valid_fields.each do |key|
           expect(check_in.key? key).to be true
@@ -91,7 +91,8 @@ describe CheckInApi do
         check_in['message'] = 'a new message'
         put "#{url}/#{check_in['id']}", check_in.slice('message')
         expect(last_response.status).to eq 200
-        expect(check_in).to eq JSON.parse(last_response.body)
+        new_check_in = JSON.parse(last_response.body)
+        expect(check_in['message']).to eq new_check_in['message']
       end
 
       it 'shows error when check in does not exist' do
@@ -107,24 +108,40 @@ describe CheckInApi do
 
   describe 'without auth' do
 
-    it 'GET /check_ins' do
-      get url
-      expect(last_response.status).to eq 401
+    describe 'GET /check_ins' do
+
+      it 'show not authenticated error' do
+        get url
+        expect(last_response.status).to eq 401
+      end
+
     end
 
-    it 'POST /check_ins' do
-      create_check_in
-      expect(last_response.status).to eq 401
+    describe 'POST /check_ins' do
+
+      it 'show not authenticated error' do
+        create_check_in
+        expect(last_response.status).to eq 401
+      end
+
     end
 
-    it 'GET /check_ins/:id' do
-      get "#{url}/1"
-      expect(last_response.status).to eq 401
+    describe 'GET /check_ins/:id' do
+
+      it 'show not authenticated error' do
+        get "#{url}/1"
+        expect(last_response.status).to eq 401
+      end
+
     end
 
-    it 'PUT /check_ins/:id' do
-      put "#{url}/1", attributes_for(:check_in)
-      expect(last_response.status).to eq 401
+    describe 'PUT /check_ins/:id' do
+
+      it 'show not authenticated error' do
+        put "#{url}/1", attributes_for(:check_in)
+        expect(last_response.status).to eq 401
+      end
+
     end
 
   end
