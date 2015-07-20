@@ -50,6 +50,8 @@ describe UserApi do
 
   describe 'without auth' do
 
+    include_context 'invalid token'
+
     describe 'POST /users' do
 
       it 'creates a new user' do

@@ -9,3 +9,11 @@ shared_context 'authenticate' do
   end
 
 end
+
+shared_context 'invalid token' do
+
+  before(:all) do
+    header 'Authorization', 'Bearer gibberish'
+  end
+
+end

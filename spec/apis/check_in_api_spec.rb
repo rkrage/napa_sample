@@ -108,6 +108,8 @@ describe CheckInApi do
 
   describe 'without auth' do
 
+    include_context 'invalid token'
+
     describe 'GET /check_ins' do
 
       it 'show not authenticated error' do
